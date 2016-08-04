@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<title>Ng Table Directive Demo by Prit</title>
+		<!-- include angular -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+		<!-- include ng-table directive -->
+		<link rel="stylesheet" href="https://cdn.rawgit.com/esvit/ng-table/1.0.0/dist/ng-table.min.css">
+		<script src="https://cdn.rawgit.com/esvit/ng-table/1.0.0/dist/ng-table.js"></script>
+	</head>
+	<body>
+		<script>
+			// create angular application
+			var app = angular.module("myApp", ["ngTable"]);
+			
+			app.controller('MyTestAppController', function($scope, NgTableParams){
+				$scope.recordsList = [{ Name: "Pritam", SName: "Narkhede", DOB: "26-06-1991"},
+									  { Name: "Hardik", SName: "Shah", DOB: "26-06-1991"},
+									  { Name: "Amol", SName: "Kulthe", DOB: "26-06-1991"},
+									  { Name: "Sagar", SName: "Pawal", DOB: "26-06-1991"}
+									 ];
+									 
+				$scope.tableParams = new  NgTableParams({
+												sorting: { Name: "asc" },
+												count: 2
+											}, {
+											  dataset: $scope.recordsList,
+											  paginationMaxBlocks: 4,
+											  paginationMinBlocks: 2,
+											  counts:[]
+											});
+											
+				console.log($scope.tableParams);
+				
+			});
+		</script>
+		
+		<div ng-app="myApp" ng-controller="MyTestAppController">
+		<table ng-table="tableParams" class="table" >
+			<tr ng-repeat="user in $data">
+				<td title="'Name'"  sortable="'Name'">
+					{{user.Name}}</td>
+				<td title="'Last Name'" sortable="'SName'">
+					{{user.SName}}</td>
+			</tr>
+		</table>
+		</div>
+	</body>
+</html>
